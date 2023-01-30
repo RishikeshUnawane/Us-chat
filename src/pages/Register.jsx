@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
-import Add from "../img/addAvatar.png"
+import Add from "../img/addAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link} from 'react-router-dom';
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -23,12 +23,6 @@ const Register = () => {
 
       const storageRef = ref(storage, displayName);
 
-      
-      // uploadTask.on(
-        //   (error) => {
-          //     console.log(error)
-          //     setErr(true);
-          //   },
           await uploadBytesResumable(storageRef, file)
           .then(() => {
           getDownloadURL(storageRef).then(async (downloadURL) => {
@@ -48,7 +42,6 @@ const Register = () => {
           });
         }
         )
-      // );
 
     } catch (err) {
       console.log(err)
@@ -73,7 +66,7 @@ const Register = () => {
           <button>Sign Up</button>
           {err && <span>Something went wrong</span>}
         </form>
-        <p>Have an account ? Login</p>
+        <p>Have an account ? <Link to="/login">Login</Link></p>
       </div>
     </div>
   )
